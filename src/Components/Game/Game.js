@@ -46,7 +46,8 @@ class Game extends Component{
         let line = [];
         for(let j = 0; j < dimension; j++){
             line.push(
-                {discovered : false,hasShip : true}
+                {discovered : Math.random() >= 0.5 ? true : false,
+                hasShip : Math.random() >= 0.5 ? true : false}
             );
         }
         fieldArr.push(line);

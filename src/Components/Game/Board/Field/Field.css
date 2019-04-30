@@ -1,12 +1,10 @@
 .field{
   margin: 0px;
+  height: 20px;
+  width: 20px;
 }
 
-.div{
-  height: 20px !important;
-}
-
-.enemy{
+.enemy-unknown-hasShip{
   background-color: blue;
   background-image: url("./questionMark.jpg");
   background-repeat: no-repeat;
@@ -15,16 +13,26 @@
   height: 20px;
 }
 
-.own{
-  background-color: blue;
+.own-unknown-hasShip{
+  background-image: url("./x.jpg"); 
+  background-repeat: no-repeat;
+  background-size: 20px;
   width: 20px;
   height: 20px;
 }
 
-.discovered{
-  background-color: blue;
+.own-discovered-hasShip, .enemy-discovered-hasShip{
+  background-image: url("./red_x.jpg"); 
+  background-repeat: no-repeat;
+  background-size: 20px;
 }
 
-.unknown{
+.own-discovered-empty, .enemy-discovered-empty{
+  background-color:blue;
+  background-size: 20px;
+}
+
+.own-unknown-empty, .enemy-unknown-empty, .own-unknown-hasShip {
   background-color: gray;
+  background-size: 20px;
 }

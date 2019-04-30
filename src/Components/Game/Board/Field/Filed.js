@@ -6,25 +6,24 @@ class Field extends Component{
     constructor(props) {
         super (props);
         this.state = {
-          type: this.props.type,
+          type: this.props.attributes.type,
           ship: false
         };
       }
 
     render(){
+      let classes = this.getClasses(this.props.attributes);
         return(
-            <button onClick={(this.props.changeTurn ? this.props.changeTurn : "" )} className={"field " + this.state.type}>
+            <button onClick={(this.props.changeTurn ? this.props.changeTurn : "" )} className={"field " + this.getClasses()}>
             </button>
         )
     }
 
     getClasses(){
-      /*if()
-      let classes = field.discovered ? "discovered" : "unknown";
-      classes += " ";
-      classes += field.hasShip ? "hasShip" : "empty";
-      return classes; */
-      return "";
+      let classes = this.props.attributes.type === "own" ? "own" : "enemy";
+      classes += this.props.attributes.discovered ? "-discovered" : "-unknown";
+      classes += this.props.attributes.hasShip ? "-hasShip" : "-empty";
+      return classes;
   }
 }
 

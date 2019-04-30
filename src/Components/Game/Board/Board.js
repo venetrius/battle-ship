@@ -19,9 +19,9 @@ class Board extends Component{
                 let nextField = this.props.fields[i][j];
                 nextField.type = this.props.type;
                 if(this.props.type === "enemy" && this.props.isPlayerTurn){
-                    line.push(<Field attributes={nextField} changeTurn={this.props.changeTurn} type={this.props.type}/>);
+                    line.push(<Field attributes={nextField} changeTurn={this.props.changeTurn}/>);
                 }else{
-                    line.push(<Field attributes={nextField} type={this.props.type}/>);
+                    line.push(<Field attributes={nextField}/>);
                 }
                 
             }
