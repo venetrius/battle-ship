@@ -15,9 +15,8 @@ class Field extends Component{
     render(){
         console.log(this.state.hasShip);
         return(
-            <div className={"field "  + (this.state.hasShip === true ? "hasShip" : "empty")}>
-                
-            </div>
+            <button className={"field "  + (this.state.hasShip === true ? "hasShip" : "empty")}>
+            </button>
         )
     }
 }

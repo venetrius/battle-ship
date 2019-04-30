@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Field from './Board/Field/Filed.js';
+import Board from './Board/Board.js';
 
 class Game extends Component{
     render(){
@@ -10,6 +11,8 @@ class Game extends Component{
             <Field hasShip={false}></Field>
             <Field hasShip={true}></Field>
             There should be fields
+            <Board></Board>
+            There should be a Board component
         </div>
         );
     }
