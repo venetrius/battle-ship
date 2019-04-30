@@ -6,7 +6,7 @@ class Board extends Component{
     constructor(props){
         super(props);
         this.state = {
-            dimension : this.props.dimension ? this.props.dimension : 10
+            dimension : this.props.dimension ? this.props.dimension : 10,
         };
     }
 
@@ -16,17 +16,25 @@ class Board extends Component{
         for(var i = 0; i < dimension; i++){
             var line = [];
             for(var j = 0; j < dimension; j++){
-                line.push(<Field/>);
+                let nextField = this.props.fields[i][j];
+                nextField.type = this.props.type;
+                if(this.props.type === "enemy" && this.props.isPlayerTurn){
+                    line.push(<Field attributes={nextField} changeTurn={this.props.changeTurn} type={this.props.type}/>);
+                }else{
+                    line.push(<Field attributes={nextField} type={this.props.type}/>);
+                }
+                
             }
             fields.push(<div>{line}</div>);
         }
         return(
             
-            <div>
+            <div className="board">
                 {fields}
             </div>
         );
     }
+
 }
 
 export default Board;

@@ -1,21 +1,61 @@
 import React, { Component } from 'react';
-import Field from './Board/Field/Filed.js';
 import Board from './Board/Board.js';
 
 class Game extends Component{
-    render(){
-        return (
-        <div>
-            This is the Game component.
-            And this is a Field
-            <Field hasShip={false}></Field>
-            <Field hasShip={true}></Field>
-            There should be fields
-            <Board></Board>
-            There should be a Board component
-        </div>
-        );
+
+  constructor(props){
+    super(props);
+    this.state = {
+      isPlayerTurn : true,
+      dimension: 10,
+      fields: this.initFields(10)
+    };
+  }
+
+  render(){
+    return (
+      <div>
+        it is {(this.state.isPlayerTurn ? "the player's" : "the AI's")} turn 
+        <br/>
+        your board
+        <Board type="own" fields={this.state.fields}/>
+        enemy board
+        <Board changeTurn={()=>this.changeTurn()} isPlayerTurn={this.state.isPlayerTurn} type="enemy" fields={this.state.fields}></Board>        
+      </div>
+    );
+  }
+
+  changeTurn(){
+    this.setState(
+      {isPlayerTurn : !this.state.isPlayerTurn}
+    );
+  }
+
+  actionOnBoard(x,y){
+    let fields = this.state.fields;
+    fields[x][y].discovered = true;
+    this.setState(
+      {fields : fields}
+      );
+  }
+
+  initFields(dimension){
+    console.log("initFields is called");
+    let fieldArr = [];
+    for(let i = 0; i < dimension; i++){
+        let line = [];
+        for(let j = 0; j < dimension; j++){
+            line.push(
+                {discovered : false,hasShip : true}
+            );
+        }
+        fieldArr.push(line);
     }
+    return fieldArr;
+  }
+
 }
+
+
 
 export default Game;

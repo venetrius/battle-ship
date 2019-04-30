@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
 
-class Ship extends Component{
+class Ship extends{
 
     constructor(props){
         super(props);
@@ -12,13 +11,6 @@ class Ship extends Component{
         };
     }
 
-    render(props){
-        return(
-            <div>
-                
-            </div>
-        );
-    }
 }
 
 

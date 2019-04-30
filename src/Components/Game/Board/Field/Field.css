@@ -1,14 +1,30 @@
 .field{
-    
-    height: 20px;
-    width: 20px;
-    background-color: blue;
+  margin: 0px;
 }
 
-.empty{
-    background-color: blue;
+.div{
+  height: 20px !important;
 }
 
-.hasShip {
-    background-color: red;
+.enemy{
+  background-color: blue;
+  background-image: url("./questionMark.jpg");
+  background-repeat: no-repeat;
+  background-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.own{
+  background-color: blue;
+  width: 20px;
+  height: 20px;
+}
+
+.discovered{
+  background-color: blue;
+}
+
+.unknown{
+  background-color: gray;
 }
