@@ -4,7 +4,7 @@
   width: 20px;
 }
 
-.enemy-unknown-hasShip{
+.enemy-unknown-empty, .enemy-unknown-hasShip {
   background-color: blue;
   background-image: url("./questionMark.jpg");
   background-repeat: no-repeat;
@@ -32,7 +32,7 @@
   background-size: 20px;
 }
 
-.own-unknown-empty, .enemy-unknown-empty, .own-unknown-hasShip {
+.own-unknown-empty{
   background-color: gray;
   background-size: 20px;
 }
