@@ -20,7 +20,7 @@ class Game extends Component{
         your board
         <Board type="own" fields={this.state.fields}/>
         enemy board
-        <Board changeTurn={()=>this.changeTurn()} isPlayerTurn={this.state.isPlayerTurn} type="enemy" fields={this.state.fields}></Board>        
+        <Board changeTurn={(x,y)=>this.handleFieldClick(x,y)} isPlayerTurn={this.state.isPlayerTurn} type="enemy" fields={this.state.fields}></Board>        
       </div>
     );
   }
@@ -31,12 +31,13 @@ class Game extends Component{
     );
   }
 
-  actionOnBoard(x,y){
+  handleFieldClick(x,y){
     let fields = this.state.fields;
     fields[x][y].discovered = true;
     this.setState(
       {fields : fields}
       );
+    this.changeTurn();
   }
 
   initFields(dimension){

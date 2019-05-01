@@ -14,7 +14,7 @@ class Field extends Component{
     render(){
       let classes = this.getClasses(this.props.attributes);
         return(
-            <button onClick={(this.props.changeTurn ? this.props.changeTurn : "" )} className={"field " + this.getClasses()}>
+            <button onClick={this.props.changeTurn} className={"field " + this.getClasses()}>
             </button>
         )
     }
