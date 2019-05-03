@@ -33,14 +33,14 @@ This project will consist of building a battleship game.
 ## Software Requirements
 * ### functional Requirements
 * The Player should be able to start a new game at any point.
-* The Player should be able to take a shot at the Players turn.
-* The Player should be able to play againt an AI.
+* The Player should be able to take a shot at the Players turn. (/)
+* The Player should be able to play against an AI.
 * The Player should be able to see a leaderboard of games against the AI.
 
 * ### Display Requirements
 
-* The player should be able to see the Player board and the other players board.
-* The player, should be able to see who's turn it currently is.
+* The player should be able to see the Player board and the other players board. (/)
+* The player, should be able to see who's turn it currently is.                  (/)
 * The player, should be able to see a list of ships for each player.
 * The player, should be able to see a log of shots made by both players over the game.
 

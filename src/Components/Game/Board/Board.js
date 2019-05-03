@@ -18,18 +18,19 @@ class Board extends Component{
             for(let j = 0; j < dimension; j++){
                 let nextField = this.props.fields[i][j];
                 nextField.type = this.props.type;
+                nextField.id = "FIELD" +(i*1000 + j);
                 if(this.props.type === "enemy" && this.props.isPlayerTurn){
-                    line.push(<Field attributes={nextField} changeTurn={() => this.props.changeTurn(i,j)}/>);
+                    line.push(<Field key={"FIELDD" +(i*1000 + j)} attributes={nextField} changeTurn={() => this.props.changeTurn(i,j)}/>);
                 }else{
-                    line.push(<Field attributes={nextField}/>);
+                    line.push(<Field key={"FIELDD" +(i*1000 + j)} attributes={nextField}/>);
                 }
                 
             }
-            fields.push(<div>{line}</div>);
+            fields.push(<div key={"FIELDDF" +(i*1000)}>{line}</div>);
         }
         return(
             
-            <div className="board">
+            <div className="board" key={this.props.type}>
                 <button onClick={() => this.props.changeTurn(1,1)} />
                 {fields}
             </div>

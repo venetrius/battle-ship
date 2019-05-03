@@ -12,9 +12,9 @@ class Field extends Component{
       }
 
     render(){
-      let classes = this.getClasses(this.props.attributes);
+    //  let classes = this.getClasses(this.props.attributes);
         return(
-            <button onClick={this.props.changeTurn} className={"field " + this.getClasses()}>
+            <button key={this.props.attributes.id} onClick={this.props.changeTurn} className={"field " + this.getClasses()}>
             </button>
         )
     }

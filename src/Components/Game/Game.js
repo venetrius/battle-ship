@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Board from './Board/Board.js';
+import GameLogic from './../../Logic/game-logic.js';
 
 class Game extends Component{
 
@@ -8,7 +9,8 @@ class Game extends Component{
     this.state = {
       isPlayerTurn : true,
       dimension: 10,
-      fields: this.initFields(10)
+      fields: this.initFields(10),
+      enemyFields : this.initEnemyFields(10)
     };
   }
 
@@ -20,7 +22,7 @@ class Game extends Component{
         your board
         <Board type="own" fields={this.state.fields}/>
         enemy board
-        <Board changeTurn={(x,y)=>this.handleFieldClick(x,y)} isPlayerTurn={this.state.isPlayerTurn} type="enemy" fields={this.state.fields}></Board>        
+        <Board changeTurn={(x,y)=>this.handleFieldClick(x,y)} isPlayerTurn={this.state.isPlayerTurn} type="enemy" fields={this.state.enemyFields}></Board>        
       </div>
     );
   }
@@ -32,16 +34,17 @@ class Game extends Component{
   }
 
   handleFieldClick(x,y){
-    let fields = this.state.fields;
-    fields[x][y].discovered = true;
+    let enemyFields = this.state.enemyFields;
+    enemyFields[x][y].discovered = true;
     this.setState(
-      {fields : fields}
+      {enemyFields : enemyFields}
       );
     this.changeTurn();
   }
 
   initFields(dimension){
     console.log("initFields is called");
+    //console.log(GameLogic.getShips());
     let fieldArr = [];
     for(let i = 0; i < dimension; i++){
         let line = [];
@@ -53,6 +56,31 @@ class Game extends Component{
         }
         fieldArr.push(line);
     }
+    return fieldArr;
+  }
+
+  initEnemyFields(dimension){
+    let fieldArr = [];
+    for(let i = 0; i < dimension; i++){
+        let line = [];
+        for(let j = 0; j < dimension; j++){
+            line.push(
+                {discovered : false,
+                hasShip :  false}
+            );
+        }
+        fieldArr.push(line);
+    }
+    let ships = GameLogic.getShips(dimension);
+    console.log("ships", ships);
+    for(let ship of ships){
+      console.log("init enemy",ship);
+      for(let cord of ship.coordinates){
+        fieldArr[cord.x][cord.y] = {discovered : false,
+                                    hasShip :  true}
+      }
+    }
+    console.log("enemyfields", fieldArr);
     return fieldArr;
   }
 
