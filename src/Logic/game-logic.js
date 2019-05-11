@@ -28,17 +28,19 @@ class GameLogic{
       ];
     return ships;
   }
-/*
+
   static getShipsWithCoordMap(dimensions){
-    let ships = getShips(dimensions);
-    let shipCoordMap = [];
+    let ships = this.getShips(dimensions);
+    let shipCoordMap = {};
     for (let ship of ships){
-      for (let coord of ship.Coordinates){
-        shipCoordMap.push()
+      for (let coord of ship.coordinates){
+        shipCoordMap[coord] = ship;
       }
     }
+    return {ships : ships,
+      shipCoordMap: shipCoordMap}
   }
-*/
+
 }
 
 export default GameLogic;

@@ -22,10 +22,21 @@ class Game extends Component{
         your board
         <Board type="own" fields={this.state.fields}/>
         enemy board
-        <Board changeTurn={(x,y)=>this.handleFieldClick(x,y)} isPlayerTurn={this.state.isPlayerTurn} type="enemy" fields={this.state.enemyFields}></Board>        
+        <Board changeTurn={(x,y)=>this.handleFieldClick(x,y)} enemyTurn = {() => this.handleEnemyCommand()} 
+          isPlayerTurn={this.state.isPlayerTurn} type="enemy" fields={this.state.enemyFields}></Board>        
       </div>
     );
   }
+
+  enemyTurn(){
+    if(! this.state.isPlayerTurn){
+
+      this.changeTurn();
+
+    }
+    
+  }
+
 
   changeTurn(){
     this.setState(
@@ -42,6 +53,17 @@ class Game extends Component{
     this.changeTurn();
   }
 
+ handleEnemyCommand(){  // TODO DRY it
+    let x = Math.floor(Math.random() * 10);
+    let y = Math.floor(Math.random() * 10);
+    let fields = this.state.fields;
+    fields[x][y].discovered = true;
+    this.setState(
+      {fields : fields}
+      );
+    this.changeTurn();
+  }
+
   initFields(dimension){
     console.log("initFields is called");
     //console.log(GameLogic.getShips());
@@ -50,7 +72,7 @@ class Game extends Component{
         let line = [];
         for(let j = 0; j < dimension; j++){
             line.push(
-                {discovered : Math.random() >= 0.5 ? true : false,
+                {discovered : 0, //Math.random() >= 0.5 ? true : false,
                 hasShip : Math.random() >= 0.9 ? true : false}
             );
         }
@@ -71,7 +93,8 @@ class Game extends Component{
         }
         fieldArr.push(line);
     }
-    let ships = GameLogic.getShips(dimension);
+    let getShipsWithCoordMap = GameLogic.getShipsWithCoordMap();
+    let ships = getShipsWithCoordMap.ships;
     console.log("ships", ships);
     for(let ship of ships){
       console.log("init enemy",ship);
@@ -85,7 +108,5 @@ class Game extends Component{
   }
 
 }
-
-
 
 export default Game;

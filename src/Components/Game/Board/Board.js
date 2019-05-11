@@ -31,7 +31,7 @@ class Board extends Component{
         return(
             
             <div className="board" key={this.props.type}>
-                <button onClick={() => this.props.changeTurn(1,1)} />
+                <button onClick={() => this.props.enemyTurn()}> Enemy Turn </button>
                 {fields}
             </div>
         );
