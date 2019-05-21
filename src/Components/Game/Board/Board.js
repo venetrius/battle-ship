@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Field from './Field/Filed.js';
+import './Board.css';
 
 class Board extends Component{
 
@@ -8,6 +9,19 @@ class Board extends Component{
         this.state = {
             dimension : this.props.dimension ? this.props.dimension : 10
         };
+    }
+
+    createLetterLabels(type){
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        const labels = [<label key={"label"+type}>{''}</label>];
+        for(let i = 0; i < 10 ; i++){
+            
+            let char = alphabet[i];
+            let key = "label"+type+char;
+            labels.push(<label key={key}>{char}</label>);
+        }
+        console.log('labels',labels);
+        return labels;
     }
 
     render(){
@@ -26,8 +40,9 @@ class Board extends Component{
                 }
                 
             }
-            fields.push(<div key={"FIELDDF" +(i*1000)}>{line}</div>);
+            fields.push(<div key={"FIELDDF" +(i*1000)}><label>{i}</label>{line}</div>);
         }
+        fields.push(<div key={'letterLabels'+this.props.type}>{this.createLetterLabels(this.props.type)}</div>);
         return(
             
             <div className="board" key={this.props.type}>
