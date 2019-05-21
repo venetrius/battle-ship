@@ -10,7 +10,7 @@ class Game extends Component{
       isPlayerTurn : true,
       dimension: 10,
       fields: this.initFields(10),
-      enemyFields : this.initEnemyFields(10)
+      enemy : this.initEnemyFields(10)
     };
   }
 
@@ -23,7 +23,7 @@ class Game extends Component{
         <Board type="own" fields={this.state.fields}/>
         enemy board
         <Board changeTurn={(x,y)=>this.handleFieldClick(x,y)} enemyTurn = {() => this.handleEnemyCommand()} 
-          isPlayerTurn={this.state.isPlayerTurn} type="enemy" fields={this.state.enemyFields}></Board>        
+          isPlayerTurn={this.state.isPlayerTurn} type="enemy" fields={this.state.enemy.fields}></Board>        
       </div>
     );
   }
@@ -45,10 +45,16 @@ class Game extends Component{
   }
 
   handleFieldClick(x,y){
-    let enemyFields = this.state.enemyFields;
-    enemyFields[x][y].discovered = true;
+    let enemy = this.state.enemy;
+    enemy.fields[x][y].discovered = true;
+    let ship = enemy.shipCoordMap[(x*1000+y)];
+    console.log(ship,enemy.shipCoordMap);
+    if(ship){
+      ship.gotHit(x,y);
+      console.log(ship);
+    }
     this.setState(
-      {enemyFields : enemyFields}
+      {enemy : enemy}
       );
     this.changeTurn();
   }
@@ -93,8 +99,8 @@ class Game extends Component{
         }
         fieldArr.push(line);
     }
-    let getShipsWithCoordMap = GameLogic.getShipsWithCoordMap();
-    let ships = getShipsWithCoordMap.ships;
+    let shipsWithCoordMap = GameLogic.getShipsWithCoordMap();
+    let ships = shipsWithCoordMap.ships;
     console.log("ships", ships);
     for(let ship of ships){
       console.log("init enemy",ship);
@@ -104,7 +110,11 @@ class Game extends Component{
       }
     }
     console.log("enemyfields", fieldArr);
-    return fieldArr;
+    return {
+      fields : fieldArr,
+      shipCoordMap : shipsWithCoordMap.shipCoordMap,
+      ships : ships
+    };
   }
 
 }

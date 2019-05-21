@@ -8,11 +8,20 @@ class Ship {
   createCoordinatesMap(coordinates){
     let coordinatesMap = {};
     for(let coordinate of coordinates){
-      coordinatesMap.key = {hit : false, coordinate : coordinate};
+      coordinatesMap[coordinate] = false;
     }
     return coordinatesMap;
   }
 
+  isSunk(){
+    let map = this.coordinatesMap;
+    return Object.keys(map).map(key => this.coordinatesMap[key]).reduce((a,b) => a && b);
+  }
+
+  gotHit(x,y){
+    this.coordinatesMap[[x*1000+y]] = true;
+    this.sank = this.isSunk();
+  }
 }
 
 //module.exports = Ship;
