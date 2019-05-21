@@ -30,13 +30,9 @@ class Game extends Component{
 
   enemyTurn(){
     if(! this.state.isPlayerTurn){
-
       this.changeTurn();
-
-    }
-    
+    }  
   }
-
 
   changeTurn(){
     this.setState(
@@ -52,6 +48,10 @@ class Game extends Component{
     if(ship){
       ship.gotHit(x,y);
       console.log(ship);
+      if(GameLogic.isGameEnd(enemy.ships)){
+        alert('Game over')
+        return;
+      }
     }
     this.setState(
       {enemy : enemy}

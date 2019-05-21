@@ -28,6 +28,10 @@ class GameLogic{
       shipCoordMap: shipCoordMap}
   }
 
+  static isGameEnd(ships){
+    return ships.map(ship => ship.sank).reduce((a,b) => a && b);
+    
+  }
 }
 
 export default GameLogic;
