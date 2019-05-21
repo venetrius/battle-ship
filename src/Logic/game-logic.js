@@ -1,5 +1,6 @@
 import Ship from './ship.js';
 import Coordinate from './coordinate.js';
+import ShipsSet from './shipset';
 /*
 var Ship = require('./ship');
 var Coordinate = require('./coordinate');
@@ -11,21 +12,7 @@ class GameLogic{
   }
 
   static getShips(dimensions) {
-    let ships = 
-      [
-        new Ship(
-          [ new Coordinate(2,3),
-            new Coordinate(0,1),
-            new Coordinate(2,2)
-          ]),
-        new Ship([
-          new Coordinate(3,2),
-          new Coordinate(4,2)
-        ]),
-        new Ship([
-          new Coordinate(7,1)
-        ])
-      ];
+    let ships = new ShipsSet().shipSet;
     return ships;
   }
 
