@@ -4,6 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Stretch project at LHL week 1-4.
 
+## Geting started
+   * clne the repo
+   * npm install
+   * npm start
+
 ## Goal 
 This project will consist of building a battleship game.
 
