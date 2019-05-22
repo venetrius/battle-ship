@@ -14,7 +14,8 @@ class Game extends Component{
       isPlayerTurn : true,
       dimension: 10,
       player: this.initBoardState(10),
-      enemy : this.initBoardState(10)
+      enemy : this.initBoardState(10),
+      targets : this.initTargetArrForAi()
     };
   }
 
@@ -42,6 +43,32 @@ class Game extends Component{
     return ( game    );
   }
 
+  /**
+   * src : https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+ * Shuffles array in place.
+ * @param {Array} a items An array containing the items.
+ */
+  shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+  }
+
+  initTargetArrForAi(){
+    const targetArr = [];
+    for (let i = 0; i < 10; i++){
+      for (let j = 0; j < 10; j++){
+        targetArr.push({x : i, y : j});
+      }
+    }
+    return (this.shuffle(targetArr));
+  }
+
   header(){
     return (
     <Navbar bg="light" expand="lg">
@@ -54,7 +81,8 @@ class Game extends Component{
      isPlayerTurn : true,
      dimension : 10,
      player : this.initBoardState(10),
-     enemy : this.initBoardState(10)
+     enemy : this.initBoardState(10),
+     targets : this.initTargetArrForAi()
     }
     this.setState(newState);
   }
@@ -85,8 +113,9 @@ class Game extends Component{
   }
 
  handleEnemyCommand(){  // TODO DRY it
-    let x = Math.floor(Math.random() * 10);
-    let y = Math.floor(Math.random() * 10);
+  const {x,y} = this.state.targets.pop();
+    //let x = Math.floor(Math.random() * 10);
+    //let y = Math.floor(Math.random() * 10);
     let player = this.state.player;
     player.fields[x][y].discovered = true;
     let ship = player.shipCoordMap[(x*1000+y)];
