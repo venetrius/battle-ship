@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Board from './Board/Board.js';
 import GameLogic from './../../Logic/game-logic.js';
-import { Button, Navbar, Container, Row,Col } from 'react-bootstrap';
+import { Button, Navbar, Container, Row, Col, Modal, InputGroup, FormControl } from 'react-bootstrap';
 import './Game.css';
 
 
@@ -10,7 +10,7 @@ class Game extends Component{
   constructor(props){
     super(props);
     this.state = {
-      started : false,
+      started : true,
       isPlayerTurn : true,
       dimension: 10,
       player: this.initBoardState(10),
@@ -23,6 +23,7 @@ class Game extends Component{
     const game = 
       <div>
         {this.header()}
+        {this.newGameForm()}
         <h2>it is {(this.state.isPlayerTurn ? "the player's" : "the AI's")} turn </h2>
         <Container>
           <Row>
@@ -41,6 +42,53 @@ class Game extends Component{
         </Container>
       </div>
     return ( game    );
+  }
+
+  newGameForm(){
+    const modal = 
+      (<Modal show={ ! this.state.started} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Starting a new game</Modal.Title>
+        </Modal.Header>
+          <Modal.Body>
+            <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text>Carrier</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl />
+            <FormControl /></InputGroup><InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text>Battleship</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl />
+            <FormControl /></InputGroup><InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text>Cruiser</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl />
+            <FormControl /></InputGroup><InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text>Submarine</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl />
+            <FormControl /></InputGroup><InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text>Destroyer</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl />
+            <FormControl />
+          </InputGroup>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={this.handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>);
+    return (modal);
   }
 
   /**
