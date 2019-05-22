@@ -19,6 +19,7 @@ class Game extends Component{
       <div>
         it is {(this.state.isPlayerTurn ? "the player's" : "the AI's")} turn 
         <br/>
+        <button onClick={() => this.restartGame()}> RestartGame</button>
         your board
         <Board type="own" fields={this.state.fields}/>
         enemy board
@@ -28,10 +29,14 @@ class Game extends Component{
     );
   }
 
-  enemyTurn(){
-    if(! this.state.isPlayerTurn){
-      this.changeTurn();
-    }  
+  restartGame(){
+    let newState = {
+     isPlayerTurn : true,
+     dimension : 10,
+     fields : this.initFields(10),
+     enemy : this.initEnemyFields(10)
+    }
+    this.setState(newState);
   }
 
   changeTurn(){
