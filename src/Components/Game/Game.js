@@ -13,8 +13,8 @@ class Game extends Component{
       started : false,
       isPlayerTurn : true,
       dimension: 10,
-      fields: this.initFields(10),
-      enemy : this.initEnemyFields(10)
+      player: this.initBoardState(10),
+      enemy : this.initBoardState(10)
     };
   }
 
@@ -27,7 +27,7 @@ class Game extends Component{
           <Row>
             <Col>
               <h3>your board</h3>
-              <Board type="own" fields={this.state.fields}/>
+              <Board type="own" fields={this.state.player.fields}/>
               
             </Col>
             <Col>
@@ -53,8 +53,8 @@ class Game extends Component{
     let newState = {
      isPlayerTurn : true,
      dimension : 10,
-     fields : this.initFields(10),
-     enemy : this.initEnemyFields(10)
+     player : this.initBoardState(10),
+     enemy : this.initBoardState(10)
     }
     this.setState(newState);
   }
@@ -74,7 +74,7 @@ class Game extends Component{
       ship.gotHit(x,y);
       console.log(ship);
       if(GameLogic.isGameEnd(enemy.ships)){
-        alert('Game over')
+        alert('Enemy has been elminated. You have won!')
         return;
       }
     }
@@ -87,10 +87,20 @@ class Game extends Component{
  handleEnemyCommand(){  // TODO DRY it
     let x = Math.floor(Math.random() * 10);
     let y = Math.floor(Math.random() * 10);
-    let fields = this.state.fields;
-    fields[x][y].discovered = true;
+    let player = this.state.player;
+    player.fields[x][y].discovered = true;
+    let ship = player.shipCoordMap[(x*1000+y)];
+    console.log(ship,player.shipCoordMap);
+    if(ship){
+      ship.gotHit(x,y);
+      console.log(ship);
+      if(GameLogic.isGameEnd(player.ships)){
+        alert('You have been elminated. You have lost!')
+        return;
+      }
+    }
     this.setState(
-      {fields : fields}
+      {fields : player}
       );
     this.changeTurn();
   }
@@ -103,35 +113,30 @@ class Game extends Component{
         let line = [];
         for(let j = 0; j < dimension; j++){
             line.push(
-                {discovered : 0, //Math.random() >= 0.5 ? true : false,
-                hasShip : Math.random() >= 0.9 ? true : false}
+              {discovered : false,
+                hasShip :  false
+              }
             );
         }
         fieldArr.push(line);
     }
+    console.log("fieldArr",fieldArr);
     return fieldArr;
   }
 
-  initEnemyFields(dimension){
-    let fieldArr = [];
-    for(let i = 0; i < dimension; i++){
-        let line = [];
-        for(let j = 0; j < dimension; j++){
-            line.push(
-                {discovered : false,
-                hasShip :  false}
-            );
-        }
-        fieldArr.push(line);
-    }
+  initBoardState(dimension){
+    let fieldArr = this.initFields(10);
+    console.log("fieldArr",fieldArr);
     let shipsWithCoordMap = GameLogic.getShipsWithCoordMap();
     let ships = shipsWithCoordMap.ships;
     console.log("ships", ships);
     for(let ship of ships){
       console.log("init enemy",ship);
       for(let cord of ship.coordinates){
+        console.log(cord);
         fieldArr[cord.x][cord.y] = {discovered : false,
-                                    hasShip :  true}
+                                    hasShip :  true,
+                                    sunk : false}
       }
     }
     console.log("enemyfields", fieldArr);
